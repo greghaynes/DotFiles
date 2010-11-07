@@ -1,0 +1,3 @@
+startup_message off
+defscrollback 1000
+hardstatus alwayslastline '%{Gk}%-w%{.Gk}%n %t%{-}%+w %=%{.w}%{kG}%C'
