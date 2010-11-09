@@ -1,5 +1,15 @@
 unsetopt beep
 
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+fpath=($fpath $HOME/.zsh/func)
+typeset -u fpath
+
+autoload -U zgitinit
+zgitinit
+
 # Aliases
 alias ls="ls -b -CF --color=auto"
 alias ssh-morbo="ssh greghaynes@morbo.greghaynes.net"
@@ -9,39 +19,42 @@ alias df='df -h -x none'
 alias free='free -m'
 
 # Prompt
-preexec () {
+prompt_preexec () {
 	if [ "$TERM" = screen ]; then
 		print -nP '\033k%'
 		print -nPR "%60>...>${(V)1//\%/%%}"
 		print -n '\033\\'
 	fi
 }
+preexec_functions+=prompt_preexec
 
-if [[ "$TERM" == "screen" ]]; then
-	PROMPT="${PROMPT}%{^[kzsh^[\\%}"
-fi
+prompt_precmd() {
+	# Get username color
+	if [ "${UID}" = 0 ]; then
+		usercolor="red"
+	else
+		case $(whoami) in
+			greghaynes*) usercolor="green" ;;
+			gregarei*) usercolor="yellow" ;;
+			greghayn*) usercolor="blue" ;;
+			*) usercolor="blue" ;;
+		esac
+	fi
 
-
-# Get username color
-if [ "${UID}" = 0 ]; then
-	usercolor="red"
-else
-	case $(whoami) in
-		greghaynes*) usercolor="green" ;;
-		gregarei*) usercolor="yellow" ;;
-		greghayn*) usercolor="blue" ;;
-		*) usercolor="blue" ;;
+	# Get hostname color
+	case $(hostname) in
+		bender*) hostcolor="yellow" ;;
+		morbo*) hostcolor="magenta" ;;
+		*) hostcolor="blue" ;;
 	esac
-fi
 
-# Get hostname color
-case $(hostname) in
-	bender*) hostcolor="yellow" ;;
-	morbo*) hostcolor="magenta" ;;
-	*) hostcolor="blue" ;;
-esac
-
-PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}%~%f]>"
+	if zgit_isgit; then
+		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}%~%f](%F{cyan}$(zgit_branch)%f)>"
+	else
+		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}%~%f]>"
+	fi
+}
+precmd_functions+=prompt_precmd
 
 #History
 HISTFILE=$HOME/.zsh_history
