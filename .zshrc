@@ -21,12 +21,20 @@ if [[ "$TERM" == "screen" ]]; then
 	PROMPT="${PROMPT}%{^[kzsh^[\\%}"
 fi
 
+
+# Get username color
 if [ "${UID}" = 0 ]; then
 	usercolor="red"
 else
-	usercolor="green"
+	case $(whoami) in
+		greghaynes*) usercolor="green" ;;
+		gregarei*) usercolor="blue" ;;
+		greghayn*) usercolor="yellow" ;;
+		*) usercolor="orange" ;;
+	esac
 fi
 
+# Get hostname color
 case $(hostname) in
 	bender*) hostcolor="yellow" ;;
 	morbo*) hostcolor="magenta" ;;
