@@ -1,0 +1,3 @@
+CECS='(cat|cee?|cecs|cs|dmm\.sysc|ec?e|its|lists|m?me|mesa|seas)\.pdx\.edu'
+SUPPORT='((the)?cat|help|support|sysgroup|trouble)'
+

@@ -1,0 +1,28 @@
+:0:
+* ^Subject:.*Found
+$MAILDIR/.Found/
+
+:0:
+* ^Subject:.*printer check
+$MAILDIR/.Printers/
+
+:0:
+* ^X-TTS: .*PRINTER
+$MAILDIR/.Printers/
+
+:0:
+* ^Subject:.*Your print job
+$MAILDIR/.Printers/
+
+:0:
+* ^Subject:.*enable jack
+$MAILDIR/.Network/
+
+:0:
+* ^Subject:.*Your.*Session has been terminated
+$MAILDIR/.PewPewPews/
+
+:0:
+* ^Subject: Your locked.*session
+$MAILDIR/.PewPewPews/
+

@@ -1,0 +1,15 @@
+:0:
+* $^List-Id: (.+ )?<?dogs\.${CECS}>?
+$MAILDIR/.Lists.DOGs/
+
+:0:
+* $^List-Id: (.+ )?<?netadmin\.${CECS}>?
+$MAILDIR/.Lists.NetAdmin/
+
+:0:
+* $^List-Id: (.+ )?<?tutors\.${CECS}>?
+$MAILDIR/.Lists.Tutors/
+
+:0:
+* $^List-Id: (.+ )?<?zombies\.${CECS}>?
+$MAILDIR/.Lists.Zombies/

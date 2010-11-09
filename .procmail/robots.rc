@@ -1,0 +1,12 @@
+:0:
+* ^Subject:.*morning printer check
+$MAILDIR/.Robots.Printers/
+
+:0:
+* ^Subject: PaperCut NG Notification
+$MAILDIR/.Robots.Printers/
+
+:0:
+* ^Subject:.*(move|store|edit|reap) Host
+$MAILDIR/.Robots.Network/
+
