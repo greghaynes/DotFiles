@@ -28,9 +28,9 @@ if [ "${UID}" = 0 ]; then
 else
 	case $(whoami) in
 		greghaynes*) usercolor="green" ;;
-		gregarei*) usercolor="blue" ;;
-		greghayn*) usercolor="yellow" ;;
-		*) usercolor="orange" ;;
+		gregarei*) usercolor="yellow" ;;
+		greghayn*) usercolor="blue" ;;
+		*) usercolor="blue" ;;
 	esac
 fi
 
@@ -41,7 +41,7 @@ case $(hostname) in
 	*) hostcolor="blue" ;;
 esac
 
-PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}~%f]>"
+PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}%~%f]>"
 
 #History
 HISTFILE=$HOME/.zsh_history
