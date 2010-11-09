@@ -1,0 +1,14 @@
+SHELL=/bin/sh
+MAILDIR=$HOME/mail
+DEFAULT=$MAILDIR/INBOX/
+PMDIR=$HOME/.procmail
+
+LOGFILE=$HOME/.procmail.log
+VERBOSE=yes
+
+INCLUDERC=$PMDIR/defines.rc
+INCLUDERC=$PMDIR/lists.rc
+INCLUDERC=$PMDIR/robots.rc
+INCLUDERC=$PMDIR/misc.rc
+INCLUDERC=$PMDIR/spam.rc
+
