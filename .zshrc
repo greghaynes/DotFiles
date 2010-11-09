@@ -21,19 +21,27 @@ if [[ "$TERM" == "screen" ]]; then
 	PROMPT="${PROMPT}%{^[kzsh^[\\%}"
 fi
 
+
+# Get username color
 if [ "${UID}" = 0 ]; then
 	usercolor="red"
 else
-	usercolor="green"
+	case $(whoami) in
+		greghaynes*) usercolor="green" ;;
+		gregarei*) usercolor="yellow" ;;
+		greghayn*) usercolor="blue" ;;
+		*) usercolor="blue" ;;
+	esac
 fi
 
+# Get hostname color
 case $(hostname) in
 	bender*) hostcolor="yellow" ;;
 	morbo*) hostcolor="magenta" ;;
 	*) hostcolor="blue" ;;
 esac
 
-PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}~%f]>"
+PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}%~%f]>"
 
 #History
 HISTFILE=$HOME/.zsh_history
