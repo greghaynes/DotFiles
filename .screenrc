@@ -1,3 +1,6 @@
+# don't display the copyright page
 startup_message off
-defscrollback 1000
-hardstatus alwayslastline '%{Gk}%-w%{.Gk}%n %t%{-}%+w %=%{.w}%{kG}%C'
+# visable bell
+vbell_msg "beep"
+# hardstatus
+hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][ %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%Y-%m-%d %{W}%c %{g}]'
