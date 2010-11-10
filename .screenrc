@@ -1,6 +1,6 @@
 # don't display the copyright page
 startup_message off
 # visable bell
-vbell_msg "beep"
+vbell off
 # hardstatus
 hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][ %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%Y-%m-%d %{W}%c %{g}]'
