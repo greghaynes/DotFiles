@@ -10,3 +10,7 @@ $MAILDIR/.Robots.Printers/
 * ^Subject:.*(move|store|edit|reap) Host
 $MAILDIR/.Robots.Network/
 
+:0:
+* ^Subject:.*Laptop Jack
+$MAILDIR/.Robots.Network/
+
