@@ -19,7 +19,7 @@ $MAILDIR/.Printers/
 $MAILDIR/.Network/
 
 :0:
-* ^Subject:.*Your.*Session has been terminated
+* ^Subject:.*Your.*Session.*terminated
 $MAILDIR/.PewPewPews/
 
 :0:
