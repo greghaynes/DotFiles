@@ -11,4 +11,5 @@ INCLUDERC=$PMDIR/lists.rc
 INCLUDERC=$PMDIR/robots.rc
 INCLUDERC=$PMDIR/misc.rc
 INCLUDERC=$PMDIR/spam.rc
+INCLUDERC=$PMDIR/main.rc
 
