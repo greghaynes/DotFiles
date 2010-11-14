@@ -11,7 +11,7 @@ autoload -U zgitinit
 zgitinit
 
 # Aliases
-alias ls="ls -b -CF --color=auto"
+alias ls="ls -b -CF"
 alias ssh-morbo="ssh greghaynes@morbo.greghaynes.net"
 alias ssh-alkazar="ssh greghaynes@alkazar.greghaynes.net"
 alias ssh-pdx-linux="ssh linuxlab.cs.pdx.edu"
