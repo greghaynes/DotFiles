@@ -19,7 +19,7 @@ alias ssh-pdx-unix="ssh unix.cs.pdx.edu"
 alias work-cat="ssh -t gregarei@morbo.greghaynes.net screen -x"
 alias work-greghaynes="ssh -t greghaynes@morbo.greghaynes.net screen -x"
 alias chat="ssh -t greghaynes-chat@morbo.greghaynes.net screen -x"
-alias df='df -h none'
+alias df='df -h'
 if which ls &> /dev/null; then
 	alias free='free -m'
 fi
