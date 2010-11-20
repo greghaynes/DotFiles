@@ -11,7 +11,7 @@ autoload -U zgitinit
 zgitinit
 
 # Aliases
-alias ls="ls -b -CF --color=auto"
+alias ls="ls -b -CF"
 alias ssh-morbo="ssh greghaynes@morbo.greghaynes.net"
 alias ssh-alkazar="ssh greghaynes@alkazar.greghaynes.net"
 alias ssh-pdx-linux="ssh gregarei@linuxlab.cs.pdx.edu"
@@ -20,8 +20,8 @@ alias work-cat="ssh -t gregarei@kroker.greghaynes.net screen -x"
 alias work-greghaynes="ssh -t greghaynes@kroker.greghaynes.net screen -x"
 alias chat-cat="ssh -t gregarei-chat@kroker.greghaynes.net screen -x"
 alias chat-greghaynes="ssh -t gregarei-chat@kroker.greghaynes.net screen -x"
-alias df='df -h -x none'
 alias free='free -m'
+alias df='df -h'
 
 # Prompt
 prompt_preexec () {

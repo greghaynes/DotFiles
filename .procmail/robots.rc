@@ -1,6 +1,6 @@
 :0:
 * ^Subject:.*morning printer check
-$MAILDIR/.Robots.Printers/
+$MAILDIR/.Printers/
 
 :0:
 * ^Subject: PaperCut NG Notification
