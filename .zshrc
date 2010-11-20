@@ -14,11 +14,12 @@ zgitinit
 alias ls="ls -b -CF --color=auto"
 alias ssh-morbo="ssh greghaynes@morbo.greghaynes.net"
 alias ssh-alkazar="ssh greghaynes@alkazar.greghaynes.net"
-alias ssh-pdx-linux="ssh linuxlab.cs.pdx.edu"
-alias ssh-pdx-unix="ssh unix.cs.pdx.edu"
-alias work-cat="ssh -t gregarei@morbo.greghaynes.net screen -x"
-alias work-greghaynes="ssh -t greghaynes@morbo.greghaynes.net screen -x"
-alias chat="ssh -t greghaynes-chat@morbo.greghaynes.net screen -x"
+alias ssh-pdx-linux="ssh gregarei@linuxlab.cs.pdx.edu"
+alias ssh-pdx-unix="ssh gregarei@unix.cs.pdx.edu"
+alias work-cat="ssh -t gregarei@kroker.greghaynes.net screen -x"
+alias work-greghaynes="ssh -t greghaynes@kroker.greghaynes.net screen -x"
+alias chat-cat="ssh -t gregarei-chat@kroker.greghaynes.net screen -x"
+alias chat-greghaynes="ssh -t gregarei-chat@kroker.greghaynes.net screen -x"
 alias df='df -h -x none'
 alias free='free -m'
 
