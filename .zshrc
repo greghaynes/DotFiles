@@ -18,8 +18,7 @@ alias ssh-pdx-linux="ssh gregarei@linuxlab.cs.pdx.edu"
 alias ssh-pdx-unix="ssh gregarei@unix.cs.pdx.edu"
 alias work-cat="ssh -t gregarei@kroker.greghaynes.net screen -x"
 alias work-greghaynes="ssh -t greghaynes@kroker.greghaynes.net screen -x"
-alias chat-cat="ssh -t gregarei-chat@kroker.greghaynes.net screen -x"
-alias chat-greghaynes="ssh -t gregarei-chat@kroker.greghaynes.net screen -x"
+alias chat="ssh -t greghaynes@chatclient.greghaynes.net screen -x"
 alias free='free -m'
 alias df='df -h'
 
