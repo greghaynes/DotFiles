@@ -21,6 +21,7 @@ alias work-greghaynes="ssh -t greghaynes@kroker.greghaynes.net screen -x"
 alias chat="ssh -t greghaynes@chatclient.greghaynes.net screen -x"
 alias free='free -m'
 alias df='df -h'
+alias httpserver="python -m SimpleHTTPServer"
 
 # Prompt
 prompt_preexec () {
@@ -47,15 +48,16 @@ prompt_precmd() {
 
 	# Get hostname color
 	case $(hostname) in
-		bender*) hostcolor="yellow" ;;
+		bender*) hostcolor="blue" ;;
 		morbo*) hostcolor="magenta" ;;
 		*) hostcolor="blue" ;;
 	esac
 
 	if zgit_isgit; then
-		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}%~%f](%F{cyan}$(zgit_branch)%f)>"
+		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{magenta}%~%f]
+(%F{cyan}$(zgit_branch)%f)>"
 	else
-		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{blue}%~%f]>"
+		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{magenta}%~%f]>"
 	fi
 }
 precmd_functions+=prompt_precmd
