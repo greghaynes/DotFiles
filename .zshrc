@@ -50,6 +50,7 @@ prompt_precmd() {
 	case $(hostname) in
 		bender*) hostcolor="blue" ;;
 		morbo*) hostcolor="magenta" ;;
+		farnsworth*) hostcolor="cyan" ;;
 		*) hostcolor="blue" ;;
 	esac
 
