@@ -1,3 +1,9 @@
 [user]
 	name = Gregory Haynes
 	email = greg@greghaynes.net
+[alias]
+	lg = log --pretty=format:'%h : %s' --graph --decorate
+[color]
+	ui = true
+[log]
+	decorate = true
