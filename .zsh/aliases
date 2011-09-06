@@ -1,0 +1,10 @@
+workon () {
+	#check for virtualenv
+	if [ -d $HOME/Projects/.virtualenvs/$1 ]; then
+		source $HOME/Projects/.virtualenvs/$1/bin/activate
+	fi
+
+	if [ -e $HOME/Projects/$1 ]; then
+		cd $HOME/Projects/$1
+	fi
+}

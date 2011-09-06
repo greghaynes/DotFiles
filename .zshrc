@@ -14,6 +14,9 @@ zgitinit
 if [ -e $HOME/.aliases ]; then
 	source $HOME/.aliases
 fi
+if [ -e $HOME/.zsh/aliases ]; then
+	source $HOME/.zsh/aliases
+fi
 
 # Prompt
 prompt_preexec () {
