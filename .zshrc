@@ -10,16 +10,10 @@ typeset -u fpath
 autoload -U zgitinit
 zgitinit
 
-# Aliases
-alias ls="ls -b -CF"
-alias ssh-morbo="ssh greghaynes@morbo.greghaynes.net"
-alias ssh-alkazar="ssh greghaynes@alkazar.greghaynes.net"
-alias ssh-pdx-linux="ssh gregarei@linuxlab.cs.pdx.edu"
-alias ssh-pdx-unix="ssh gregarei@unix.cs.pdx.edu"
-alias chat="ssh -t greghaynes@kroker.greghaynes.net screen -x"
-alias free='free -m'
-alias df='df -h'
-alias httpserver="python -m SimpleHTTPServer"
+# load aliases
+if [ -e $HOME/.aliases ]; then
+	source $HOME/.aliases
+fi
 
 # Prompt
 prompt_preexec () {
