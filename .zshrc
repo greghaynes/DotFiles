@@ -16,7 +16,7 @@ alias ssh-morbo="ssh greghaynes@morbo.greghaynes.net"
 alias ssh-alkazar="ssh greghaynes@alkazar.greghaynes.net"
 alias ssh-pdx-linux="ssh gregarei@linuxlab.cs.pdx.edu"
 alias ssh-pdx-unix="ssh gregarei@unix.cs.pdx.edu"
-alias chat="ssh -t greghaynes@chatclient.greghaynes.net tmux atttach -d"
+alias chat="ssh -t greghaynes@kroker.greghaynes.net screen -x"
 alias free='free -m'
 alias df='df -h'
 alias httpserver="python -m SimpleHTTPServer"
@@ -54,10 +54,18 @@ prompt_precmd() {
 
 	if zgit_isgit; then
 		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{magenta}%~%f]
-(%F{cyan}$(zgit_branch)%f)>"
+(%F{cyan}$(zgit_branch)%f)"
 	else
-		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{magenta}%~%f]>"
+		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{magenta}%~%f]"
 	fi
+
+	# Add virtual env
+	if [ -n "${VIRTUAL_ENV:+x}" ]; then
+		PROMPT="$PROMPT(%F{yellow}$(basename $VIRTUAL_ENV)%F{white})"
+	fi
+
+	# Add end char
+	PROMPT="$PROMPT>"
 }
 precmd_functions+=prompt_precmd
 
