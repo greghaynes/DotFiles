@@ -8,3 +8,6 @@ alias free='free -m'
 alias df='df -h'
 alias httpserver="python -m SimpleHTTPServer"
 
+# Mercurial
+alias hgdc="hg diff > /tmp/hgdc.diff && vim /tmp/hgdc.diff"
+
