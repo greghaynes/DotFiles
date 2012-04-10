@@ -7,67 +7,47 @@ typeset -ga chpwd_functions
 fpath=($fpath $HOME/.zsh/func)
 typeset -u fpath
 
-autoload -U zgitinit
-zgitinit
-
-# load aliases
-if [ -e $HOME/.aliases ]; then
-	source $HOME/.aliases
-fi
-if [ -e $HOME/.zsh/aliases ]; then
-	source $HOME/.zsh/aliases
-fi
-
-# Prompt
-prompt_preexec () {
-	if [ "$TERM" = screen ]; then
-		print -nP '\033k%'
-		print -nPR "%60>...>${(V)1//\%/%%}"
-		print -n '\033\\'
-	fi
+precmd() {
+    vcs_info
 }
-preexec_functions+=prompt_preexec
-
-prompt_precmd() {
-	# Get username color
-	if [ "${UID}" = 0 ]; then
-		usercolor="red"
-	else
-		case $(whoami) in
-			greghaynes*) usercolor="green" ;;
-			gregarei*) usercolor="yellow" ;;
-			greghayn*) usercolor="blue" ;;
-			*) usercolor="blue" ;;
-		esac
-	fi
-
-	# Get hostname color
-	case $(hostname) in
-		bender*) hostcolor="blue" ;;
-		morbo*) hostcolor="magenta" ;;
-		farnsworth*) hostcolor="cyan" ;;
-		*) hostcolor="blue" ;;
-	esac
-
-	if zgit_isgit; then
-		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{magenta}%~%f]
-(%F{cyan}$(zgit_branch)%f)"
-	else
-		PROMPT="[%F{$usercolor}%n%F{white}@%F{$hostcolor}%m%F{white}:%F{magenta}%~%f]"
-	fi
-
-	# Add virtual env
-	if [ -n "${VIRTUAL_ENV:+x}" ]; then
-		PROMPT="$PROMPT(%F{yellow}$(basename $VIRTUAL_ENV)%F{white})"
-	fi
-
-	# Add end char
-	PROMPT="$PROMPT>"
+autoload -Uz vcs_info
+ 
+zstyle ':vcs_info:*' stagedstr '%F{28}●'
+zstyle ':vcs_info:*' unstagedstr '%F{11}●'
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{11}%r'
+zstyle ':vcs_info:*' enable git svn
+precmd () {
+    if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
+        zstyle ':vcs_info:*' formats ' [%F{green}%b%c%u%F{blue}]'
+    } else {
+        zstyle ':vcs_info:*' formats ' [%F{green}%b%c%u%F{red}●%F{blue}]'
+    }
+ 
+    vcs_info
 }
-precmd_functions+=prompt_precmd
+ 
+setopt prompt_subst
+PROMPT='%F{green}%n %F{magenta}@%m %F{yellow}%c%F{blue}${vcs_info_msg_0_}%F{blue}%(?/%F{green}/%F{red})>%F{white}'
 
-#History
+setopt complete_in_word prompt_subst always_to_end correct_all
+setopt appendhistory hist_ignore_all_dups hist_ignore_space
+setopt local_options local_traps
+setopt auto_pushd pushd_ignore_dups pushdminus
+
+unsetopt menu_complete 
+
+# History
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=40000
 SAVEHIST=1000
+
+# Colorful manpages
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
 
