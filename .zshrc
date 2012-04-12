@@ -28,7 +28,7 @@ precmd () {
 }
  
 setopt prompt_subst
-PROMPT='%F{green}%n %F{magenta}@%m %F{yellow}%c%F{blue}${vcs_info_msg_0_}%F{blue}%(?/%F{green}/%F{red})>%F{white}'
+PROMPT='%F{green}%n %F{blue}@%m %F{yellow}%c%F{blue}${vcs_info_msg_0_}%F{blue}%(?/%F{green}/%F{red})>%F{white}'
 
 setopt complete_in_word prompt_subst always_to_end correct_all
 setopt appendhistory hist_ignore_all_dups hist_ignore_space
