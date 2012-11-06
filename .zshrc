@@ -1,53 +1,37 @@
-unsetopt beep
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
 
-typeset -ga preexec_functions
-typeset -ga precmd_functions
-typeset -ga chpwd_functions
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="robbyrussell"
 
-fpath=($fpath $HOME/.zsh/func)
-typeset -u fpath
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-precmd() {
-    vcs_info
-}
-autoload -Uz vcs_info
- 
-zstyle ':vcs_info:*' stagedstr '%F{28}●'
-zstyle ':vcs_info:*' unstagedstr '%F{11}●'
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{11}%r'
-zstyle ':vcs_info:*' enable git svn
-precmd () {
-    if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
-        zstyle ':vcs_info:*' formats ' [%F{green}%b%c%u%F{blue}]'
-    } else {
-        zstyle ':vcs_info:*' formats ' [%F{green}%b%c%u%F{red}●%F{blue}]'
-    }
- 
-    vcs_info
-}
- 
-setopt prompt_subst
-PROMPT='%F{green}%n %F{blue}@%m %F{yellow}%c%F{blue}${vcs_info_msg_0_}%F{blue}%(?/%F{green}/%F{red})>%F{white}'
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
 
-setopt complete_in_word prompt_subst always_to_end correct_all
-setopt appendhistory hist_ignore_all_dups hist_ignore_space
-setopt local_options local_traps
-setopt auto_pushd pushd_ignore_dups pushdminus
+# Comment this out to disable weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
 
-unsetopt menu_complete 
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
 
-# History
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=40000
-SAVEHIST=1000
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-# Colorful manpages
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
 
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git mercurial)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin
