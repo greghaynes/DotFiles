@@ -5,11 +5,13 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="random"
+ZSH_THEME="sunaku"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias irc="ssh -t -p 2122 ubuntu@gregirc.greghaynes.net tmux attach"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -29,9 +31,15 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git mercurial)
+plugins=(git mercurial jira python)
+JIRA_RAPID_BOARD="yes"
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:$HOME/Tools/toolchains/arm-cs-tools/bin/:$HOME/Work/sys/sys-utils/bin:$HOME/Qt5.0.1/5.0.1/clang_64/bin/
+
+# Light terminal colors
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
