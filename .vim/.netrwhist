@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/Users/greghaynes/Projects/Afproto/C'
-let g:netrw_dirhist_2='/Users/greghaynes/Work/IDO/awb-geo'
-let g:netrw_dirhist_3='/Users/greghaynes/Work/REL'
-let g:netrw_dirhist_4='/Users/greghaynes/Projects/BeagleDrone/firmware/app'
