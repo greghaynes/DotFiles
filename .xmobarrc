@@ -1,0 +1,17 @@
+Config { font = "xft:Bitstream Vera Sans Mono:size=12:antialias=true"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = Top
+       , lowerOnStart = True
+       , commands = [ Run Weather "KPDX" ["-t","<station>: <tempF>F","-L","50","-H","90","--normal","green","--high","red","--low","lightblue"] 36000
+                    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Battery ["-t", "<acstatus><watts> (<left>%) <timeleft>", "-c", "energy_full_design"] 60
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 60
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%cpu% | %memory% * %swap% | %wlan0% }{ <fc=#ee9a00>%date%</fc>| %KPDX% | %battery%"
+       }

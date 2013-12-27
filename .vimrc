@@ -5,7 +5,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 Bundle 'kien/ctrlp.vim'
@@ -18,11 +18,13 @@ se expandtab
 se nu
 se ruler
 se smartindent
+se colorcolumn=80
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
 
+syntax enable
+colorscheme desert
 se background=dark
 
 autocmd FileType make setlocal noexpandtab
 
-autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 colorcolumn=80
-:highlight ExtraWhitespace ctermbg=red guibg=red
-:match ExtraWhitespace /\s\+$/
