@@ -37,7 +37,7 @@ JIRA_RAPID_BOARD="yes"
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:$HOME/Tools/toolchains/arm-cs-tools/bin/:$HOME/Work/sys/sys-utils/bin:$HOME/Qt5.0.1/5.0.1/clang_64/bin/
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/home/greghaynes/Projects/openstack/diskimage-builder/bin:/home/greghaynes/Projects/openstack/dib-utils
 
 # Light terminal colors
 export CLICOLOR=1

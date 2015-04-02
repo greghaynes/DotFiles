@@ -1,6 +1,8 @@
 set nocompatible              " be iMproved
 filetype off                  " required!
 
+execute pathogen#infect()
+
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 " let Vundle manage Vundle
@@ -21,7 +23,8 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
 syntax enable
-colorscheme desert
+let g:solarized_termtrans=1
+colorscheme solarized
 se background=dark
 
 autocmd FileType make setlocal noexpandtab
