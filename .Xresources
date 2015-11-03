@@ -1,0 +1,14 @@
+Xft.dpi: 120
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+xterm*faceName: Source Code Pro:size=12:antialias=true
+XTerm*utf8: 1
+XTerm*selectToClipboard: true
+XTerm*ScrollBar: false
+XTerm*ScrollKey: true
+
