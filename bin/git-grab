@@ -11,7 +11,11 @@ declare -r map_path="$HOME/.git-grab-map"
 declare -A repodir_map
 
 usage() {
-    echo "usage: $my_cmd <repodir> <reponame>"
+    echo "Usage: $my_cmd <repodir> <reponame>"
+    echo ""
+    echo "Configuration: Create a .git-grab-map file in your homedir which populates a"
+    echo "               repodir_map associative array with name -> git uri prefixes."
+    echo "Example: repodir_map[\"openstack\"]=\"http://git.openstack.org/openstack\""
 }
 
 usage_exit() {
@@ -22,11 +26,11 @@ usage_exit() {
 
 check_args() {
     if [ -z "$repodir" ]; then
-        echo "Missing repodir argument"
+        echo "Error: Missing repodir argument"
         usage_exit 1
     fi
     if [ -z "$reponame" ]; then
-        echo "Missing reponame argument"
+        echo "Error: Missing reponame argument"
         usage_exit 1
     fi
 }
@@ -35,7 +39,8 @@ load_repodir_map() {
     if [ -f "$map_path" ]; then
         source $map_path
     else
-        echo "No map file found."
+        echo "Error: No map file found."
+        usage_exit 1
     fi
 }
 
