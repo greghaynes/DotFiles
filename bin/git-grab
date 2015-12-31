@@ -1,0 +1,57 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+my_cmd=$0
+repodir=${1:-}
+reponame=${2:-}
+
+declare -r map_path="$HOME/.git-grab-map"
+declare -A repodir_map
+
+usage() {
+    echo "usage: $my_cmd <repodir> <reponame>"
+}
+
+usage_exit() {
+    exit_code=${1:-0}
+    usage
+    exit $exit_code
+}
+
+check_args() {
+    if [ -z "$repodir" ]; then
+        echo "Missing repodir argument"
+        usage_exit 1
+    fi
+    if [ -z "$reponame" ]; then
+        echo "Missing reponame argument"
+        usage_exit 1
+    fi
+}
+
+load_repodir_map() {
+    if [ -f "$map_path" ]; then
+        source $map_path
+    else
+        echo "No map file found."
+    fi
+}
+
+clone_repo() {
+    set -o nounset
+    if [ "${repodir_map[$repodir]+isset}" == "isset" ]; then
+        declare -r repo_uri="${repodir_map[$repodir]}/$reponame"
+    else
+        declare -r repo_uri="$repodir/$reponame"
+    fi
+
+    git clone $repo_uri
+}
+
+check_args
+
+load_repodir_map
+
+clone_repo
