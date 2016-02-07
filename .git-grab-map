@@ -1,3 +1,4 @@
+repodir_map["greghaynes"]="https://github.com/greghaynes"
 repodir_map["openstack"]="https://git.openstack.org/openstack"
 repodir_map["openstack-infra"]="https://git.openstack.org/openstack-infra"
 repodir_map["openstack-dev"]="https://git.openstack.org/openstack-dev"
