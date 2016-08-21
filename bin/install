@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# Install greghaynes' DotFiles
+
+set -eu
+set -o pipefail
+
+DOTFILES_DIR=${DOTFILES_DIR:-}
+
+bin_dir=$(readlink -f $(dirname $0))
+
+function validate_dotfiles_dir {
+    [ -f "$1/bin/install" -a "$(head -n 3 $1/bin/install | tail -n 1)" == "# Install greghaynes' DotFiles" ]
+}
+
+function add_dotfile_symlink {
+    if ! [ -f ~/$1 ]; then
+        ln -s $DOTFILES_DIR/$1 ~/$1
+    fi
+}
+
+if [ -z "$DOTFILES_DIR" ]; then
+    if validate_dotfiles_dir $bin_dir/../; then
+        DOTFILES_DIR=$(readlink -f $bin_dir/../)
+    else
+        DOTFILES_DIR=$(mktemp)
+        trap "rm -rf $DOTFILES_DIR" EXIT
+        git clone https://github.com/greghaynes/DotFiles $DOTFILES_DIR
+    fi
+else
+    if ! validate_dotfiles_dir $DOTFILES_DIR; then
+        echo "ERROR: DOTFILES_DIR is not a valid dotfiles directory."
+        exit 1
+    fi
+fi
+
+if ! [ -d ~/.vim/bundle/Vundle.vim ]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+vim +PluginInstall +qall
+
+if ! [ -f ~/.vim/autoload/pathogen.vim ]; then
+    mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+        curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+fi
+
+if ! [ -d ~/.vim/bundle/vim-colors-solarized ]; then
+    git clone git://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
+fi
+
+for dotfile in .gitconfig .git-grab-map .hgrc .screenrc .vimrc .Xmodmap .Xresources .zshrc; do
+    add_dotfile_symlink $dotfile
+done
