@@ -29,7 +29,7 @@ if [ -z "$DOTFILES_DIR" ]; then
         DOTFILES_DIR=$(readlink -f $bin_dir/../)
     else
         DOTFILES_DIR="$(mktemp -d)/DotFiles"
-        trap "rm -rf $DOTFILES_DIR/.." EXIT
+        trap "rm -rf $(readlink -f $DOTFILES_DIR/..)" EXIT
         git clone https://github.com/greghaynes/DotFiles $DOTFILES_DIR
         copy_dotfiles=1
     fi
