@@ -13,12 +13,17 @@ function validate_dotfiles_dir {
     [ -f "$1/bin/install" -a "$(head -n 3 $1/bin/install | tail -n 1)" == "# Install greghaynes' DotFiles" ]
 }
 
-function add_dotfile_symlink {
+function add_dotfile {
     if ! [ -f ~/$1 ]; then
-        ln -s $DOTFILES_DIR/$1 ~/$1
+        if [ "${2:-0}" == "0" ]; then
+            ln -s $DOTFILES_DIR/$1 ~/$1
+        else
+            cp $DOTFILES_DIR/$1 ~/$1
+        fi
     fi
 }
 
+copy_dotfiles=0
 if [ -z "$DOTFILES_DIR" ]; then
     if validate_dotfiles_dir $bin_dir/../; then
         DOTFILES_DIR=$(readlink -f $bin_dir/../)
@@ -26,6 +31,7 @@ if [ -z "$DOTFILES_DIR" ]; then
         DOTFILES_DIR=$(mktemp)
         trap "rm -rf $DOTFILES_DIR" EXIT
         git clone https://github.com/greghaynes/DotFiles $DOTFILES_DIR
+        copy_dotfiles=1
     fi
 else
     if ! validate_dotfiles_dir $DOTFILES_DIR; then
@@ -49,5 +55,5 @@ if ! [ -d ~/.vim/bundle/vim-colors-solarized ]; then
 fi
 
 for dotfile in .gitconfig .git-grab-map .hgrc .screenrc .vimrc .Xmodmap .Xresources .zshrc; do
-    add_dotfile_symlink $dotfile
+    add_dotfile $dotfile $copy_dotfiles
 done
