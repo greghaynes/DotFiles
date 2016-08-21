@@ -2,7 +2,7 @@
 #
 # Install greghaynes' DotFiles
 
-set -eu
+set -eux
 set -o pipefail
 
 DOTFILES_DIR=${DOTFILES_DIR:-}
@@ -28,7 +28,7 @@ if [ -z "$DOTFILES_DIR" ]; then
     if validate_dotfiles_dir $bin_dir/../; then
         DOTFILES_DIR=$(readlink -f $bin_dir/../)
     else
-        DOTFILES_DIR=$(mktemp)
+        DOTFILES_DIR="$(mktemp)/DotFiles"
         trap "rm -rf $DOTFILES_DIR" EXIT
         git clone https://github.com/greghaynes/DotFiles $DOTFILES_DIR
         copy_dotfiles=1
