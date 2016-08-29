@@ -15,7 +15,7 @@ function validate_dotfiles_dir {
 
 function add_dotfile {
     if ! [ -f ~/$1 ]; then
-        if [ "${2:-0}" == "0" ]; then
+        if [ "${2:-1}" == "1" ]; then
             ln -s $DOTFILES_DIR/$1 ~/$1
         else
             cp $DOTFILES_DIR/$1 ~/$1
@@ -23,7 +23,8 @@ function add_dotfile {
     fi
 }
 
-copy_dotfiles=0
+# Setup DotFiles repo
+symlink_dotfiles=1 # whether we should symlink or copy the dotfiles
 if [ -z "$DOTFILES_DIR" ]; then
     if validate_dotfiles_dir $bin_dir/../; then
         DOTFILES_DIR=$(readlink -f $bin_dir/../)
@@ -31,7 +32,7 @@ if [ -z "$DOTFILES_DIR" ]; then
         DOTFILES_DIR="$(mktemp -d)/DotFiles"
         trap "rm -rf $(readlink -f $DOTFILES_DIR/..)" EXIT
         git clone https://github.com/greghaynes/DotFiles $DOTFILES_DIR
-        copy_dotfiles=1
+        symlink_dotfiles=0
     fi
 else
     if ! validate_dotfiles_dir $DOTFILES_DIR; then
@@ -54,6 +55,16 @@ if ! [ -d ~/.vim/bundle/vim-colors-solarized ]; then
     git clone git://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
 fi
 
-for dotfile in .gitconfig .git-grab-map .hgrc .screenrc .vimrc .Xmodmap .Xresources .zshrc; do
-    add_dotfile $dotfile $copy_dotfiles
+static_dotfiles=".gitconfig
+.git-grab-map
+.hgrc
+.screenrc
+.vimrc
+.Xmodmap
+.Xresources
+.zshrc
+.config/i3/config"
+
+for dotfile in $static_dotfiles; do
+    add_dotfile $dotfile $symlink_dotfiles
 done
