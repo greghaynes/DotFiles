@@ -23,6 +23,15 @@ function add_dotfile {
     fi
 }
 
+function add_binfile {
+    if [ "${2:-1}" == "1" ]; then
+        ln -s $DOTFILES_DIR/bin/$1 ~/bin/$1
+    else
+        cp $DOTFILES_DIR/bin/$1 ~/bin/$1
+    fi
+    chmod 0755 ~/bin/$1
+}
+
 # Setup DotFiles repo
 symlink_dotfiles=1 # whether we should symlink or copy the dotfiles
 if [ -z "$DOTFILES_DIR" ]; then
@@ -71,6 +80,12 @@ static_dotfiles=".gitconfig
 
 for dotfile in $static_dotfiles; do
     add_dotfile $dotfile $symlink_dotfiles
+done
+
+bin_files="git-grab"
+
+for binfile in $bin_files; do
+    add_binfile $binfile $symlink_dotfiles
 done
 
 # Set shell to zsh

@@ -37,7 +37,7 @@ JIRA_RAPID_BOARD="yes"
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/home/greghaynes/Projects/openstack/diskimage-builder/bin:/home/greghaynes/Projects/openstack/dib-utils/bin:/home/greghaynes/Projects/greghaynes/DotFiles/bin
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/home/greghaynes/bin
 
 alias tmux="tmux -2"
 
