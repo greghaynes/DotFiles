@@ -55,6 +55,10 @@ if ! [ -d ~/.vim/bundle/vim-colors-solarized ]; then
     git clone git://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
 fi
 
+if ! [ -d ~/.oh-my-zsh ]; then
+    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+fi
+
 static_dotfiles=".gitconfig
 .git-grab-map
 .hgrc
@@ -67,4 +71,14 @@ static_dotfiles=".gitconfig
 
 for dotfile in $static_dotfiles; do
     add_dotfile $dotfile $symlink_dotfiles
+done
+
+# Set shell to zsh
+for shell in /usr/bin/zsh /bin/zsh; do
+    if grep -q $shell "/etc/shells"; then
+        if [ "$(getent passwd $(whoami) | cut -d: -f7)" != "$shell" ]; then
+            chsh $(whoami) -s $shell
+        fi
+        break
+    fi
 done
