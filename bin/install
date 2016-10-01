@@ -24,13 +24,13 @@ function ensure_symlink {
 }
 
 function add_dotfile {
-    ensure_parent_dir $1
+    ensure_parent_dir ~/$1
     ensure_symlink $1 ~/$1
 }
 
 function add_binfile {
-    ensure_parent_dir $1
-    ensure_symlink $1 ~/bin/$1
+    ensure_parent_dir ~/bin/$1
+    ensure_symlink bin/$1 ~/bin/$1
 }
 
 # Setup DotFiles repo
