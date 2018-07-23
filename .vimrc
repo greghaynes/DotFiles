@@ -1,16 +1,7 @@
 set nocompatible              " be iMproved
 filetype off                  " required!
 
-execute pathogen#infect()
-
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
-" let Vundle manage Vundle
-" required!
-Plugin 'gmarik/vundle'
-Plugin 'kien/ctrlp.vim'
-call vundle#end() 
-filetype plugin indent on     " required!
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 se ts=4
 se sw=4
