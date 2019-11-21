@@ -6,7 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="random"
-ZSH_THEME="steeef"
+ZSH_THEME="ys"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -40,6 +40,10 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/home/greghaynes/bin
 
 alias tmux="tmux -2"
+alias vim=nvim
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
 
 # Light terminal colors
 export CLICOLOR=1

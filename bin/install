@@ -1,99 +1,54 @@
 #!/bin/bash
-#
-# Install greghaynes' DotFiles
 
 set -eux
 set -o pipefail
 
-DOTFILES_DIR=${DOTFILES_DIR:-}
+mkdir -p $HOME/bin
+mkdir -p $HOME/lib
 
-bin_dir=$(readlink -f $(dirname $0))
-
-function validate_dotfiles_dir {
-    [ -f "$1/bin/install" -a "$(head -n 3 $1/bin/install | tail -n 1)" == "# Install greghaynes' DotFiles" ]
-}
-
-function ensure_parent_dir {
-    mkdir -p $(dirname $1)
-}
-
-function ensure_symlink {
-    if ! [ -f $2 ]; then
-        ln -s $DOTFILES_DIR/$1 $2
-    fi
-}
-
-function add_dotfile {
-    ensure_parent_dir ~/$1
-    ensure_symlink $1 ~/$1
-}
-
-function add_binfile {
-    ensure_parent_dir ~/bin/$1
-    ensure_symlink bin/$1 ~/bin/$1
-}
-
-# Setup DotFiles repo
-if [ -z "$DOTFILES_DIR" ]; then
-    if validate_dotfiles_dir $bin_dir/../; then
-        DOTFILES_DIR=$(readlink -f $bin_dir/../)
-    else
-        DOTFILES_DIR="~/Projects/DotFiles"
-        mkdir -p $DOTFILES_DIR
-        git clone https://github.com/greghaynes/DotFiles $DOTFILES_DIR
-    fi
-else
-    if ! validate_dotfiles_dir $DOTFILES_DIR; then
-        echo "ERROR: DOTFILES_DIR is not a valid dotfiles directory."
-        exit 1
-    fi
+# Install nvim
+if [ ! -e $HOME/bin/nvim ]; then
+  curl -L https://github.com/neovim/neovim/releases/download/v0.4.2/nvim-linux64.tar.gz -o /tmp/nvim.tar.gz
+  tar -C $HOME/lib -xvzf /tmp/nvim.tar.gz
+  ln -s $HOME/lib/nvim-linux64/bin/nvim $HOME/bin/nvim
+  rm /tmp/nvim.tar.gz
 fi
 
-if ! [ -d ~/.vim/bundle/Vundle.vim ]; then
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
-vim +PluginInstall +qall
-
-if ! [ -f ~/.vim/autoload/pathogen.vim ]; then
-    mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-        curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+# Install vim-plug
+if [ ! -e $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
+  curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-if ! [ -d ~/.vim/bundle/vim-colors-solarized ]; then
-    git clone git://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
+# oh-my-zsh
+if [ ! -e $HOME/.oh-my-zsh ]; then
+  curl -o /tmp/oh-my-zsh.sh -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+  chmod +x /tmp/oh-my-zsh.sh
+  /tmp/oh-my-zsh.sh
+  rm /tmp/oh-my-zsh.sh
 fi
 
-if ! [ -d ~/.oh-my-zsh ]; then
-    git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+# pyenv
+if [ ! -e $HOME/.pyenv ]; then
+  git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
+  ln -s $HOME/.pyenv/bin/pyenv $HOME/bin/pyenv
 fi
 
-static_dotfiles=".gitconfig
-.git-grab-map
-.hgrc
-.screenrc
-.tmux.conf
-.vimrc
-.Xmodmap
-.Xresources
-.zshrc
-.config/i3/config"
+# pyenv-virtualenv
+if [ ! -e $HOME/.pyenv/plugins/pyenv-virtualenv ]; then
+  git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv
+fi
 
-for dotfile in $static_dotfiles; do
-    add_dotfile $dotfile
-done
+static_files=".zshrc \
+  .ssh/authorized_keys \
+  .ssh/config \
+  .tmux.conf \
+  .gitconfig \
+  .config/nvim/init.vim \
+  .config/nvim/colors/hybrid_material.vim"
 
-bin_files="git-grab"
-
-for binfile in $bin_files; do
-    add_binfile $binfile
-done
-
-# Set shell to zsh
-for shell in /usr/bin/zsh /bin/zsh; do
-    if grep -q $shell "/etc/shells"; then
-        if [ "$(getent passwd $(whoami) | cut -d: -f7)" != "$shell" ]; then
-            chsh $(whoami) -s $shell
-        fi
-        break
-    fi
+for file in $static_files; do
+  dest=${HOME}/${file}
+  dir=$(dirname $dest)
+  mkdir -p $dir
+  cp $file ~/$file
 done
